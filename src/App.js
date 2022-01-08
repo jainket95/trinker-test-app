@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Input from "./components/Input";
+import StockList from "./components/StockList";
+import stockData from "./data.json";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+	const [dropdown, setDropdown] = useState(false);
+	const [searchStock, setSearchStock] = useState("");
+	const [stocks, setStocks] = useState(stockData);
+
+	const onInputChange = (search) => {
+		setDropdown(true);
+		setSearchStock(search);
+	};
+
+	const getFilteredStock = () => {
+		const filteredStock = stocks.filter((stock) => stock.name === searchStock);
+
+		setStocks(() => filteredStock);
+	};
+
+	return (
+		<div className="mainContainer">
+			<Input onSearchChange={onInputChange} />
+			{dropdown && <StockList stocks={stockData}  />}
+		</div>
+	);
 }
-
-export default App;
