@@ -12,6 +12,7 @@ export default function App() {
 	const onInputChange = (search) => {
 		setDropdown(true);
 		setSearchStock(search);
+		getFilteredStock();
 	};
 
 	const getFilteredStock = () => {
@@ -23,7 +24,7 @@ export default function App() {
 	return (
 		<div className="mainContainer">
 			<Input onSearchChange={onInputChange} />
-			{dropdown && <StockList stocks={stockData}  />}
+			{dropdown && <StockList stocks={stockData} />}
 		</div>
 	);
 }
